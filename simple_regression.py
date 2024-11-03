@@ -15,14 +15,14 @@ def read_data(file_name):
         data = data[~np.isnan(data).any(axis=1)]
 
         if data.size == 0:
-            print(f"Veri dosyası '{file_name}' boş veya geçersiz!")
+            print(f"Veri dosyası '{file_name}' geçersiz!")
             sys.exit(1)
 
         X = data[:, 0].reshape(-1, 1)
         y = data[:, 1]
 
         if len(X) == 0 or len(y) == 0:
-            print(f"Veri dosyası '{file_name}' boş veya geçersiz!")
+            print(f"Veri dosyası '{file_name}' geçersiz!")
             sys.exit(1)
 
         return X, y
@@ -107,9 +107,7 @@ plt.scatter(Xtrain[:, 1], ttrain, color='blue', label='Train Verisi')
 plt.scatter(Xtest[:, 1], ttest, color='green', label='Test Verisi') 
 
 # Linear solution line
-x_values = np.linspace(Xtrain[:, 1].min(), Xtrain[:, 1].max(), 100)
-y_values = w[0] + w[1] * ((x_values - mean) / std) 
-plt.plot(x_values, y_values, color='red', label='Linear Solution')
+plt.plot(Xtrain[:, 1],Xtrain @ w, color='red', label='Linear Solution')
 plt.xlabel('Floor Size')
 plt.ylabel('Cost')
 plt.title('Price Prediction Based on Floor Size')
